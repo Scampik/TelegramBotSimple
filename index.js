@@ -1,9 +1,5 @@
 import axios from 'axios'
-import { config } from 'dotenv'
-import express from 'express'
-import { GoogleSpreadsheet } from 'google-spreadsheet'
 import TelegramBot from 'node-telegram-bot-api';
-import request from './src/requestApi.js';
 import { Bot } from 'grammy';
 
 const token = '5570994601:AAFGHJo3crLnHA3XBPtF_5sclnD1EoPlh0Y'; // тут токен кторый мы получили от botFather
@@ -35,14 +31,14 @@ bot.onText(/\/gif/, async (msg) => {
 
   const randomNum = Math.floor(Math.random() * 30);
   const gifApi = 'HvnTVXXC8uv8fy4iA9WVjl2tUd1MAldb';
-  const gifUrl = `https://api.giphy.com/v1/gifs/search?q=${input[1]}&rating=g&api_key=${gifApi}`;
+  const gifUrl = `https://api.giphy.com/v1/gifs/search?q=${input[1]}&limit=100&rating=r&api_key=${gifApi}`;
   
   const result = await fetch(gifUrl)
   .then(function(data) {
     return data.json()
   })
   .then(function(json){
-  //   console.log(json.data[0].images.fixed_height.url)
+    console.log('___+',json.data)
     const imgPath = json.data[randomNum].images.fixed_height.url
     return imgPath;
   })  
